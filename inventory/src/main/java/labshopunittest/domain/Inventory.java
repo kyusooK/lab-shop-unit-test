@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
 import labshopunittest.InventoryApplication;
+import labshopunittest.domain.StockDecreased;
 import lombok.Data;
 
 @Entity
@@ -20,7 +21,10 @@ public class Inventory {
     private Integer stock;
 
     @PostPersist
-    public void onPostPersist() {}
+    public void onPostPersist() {
+        StockDecreased stockDecreased = new StockDecreased(this);
+        stockDecreased.publishAfterCommit();
+    }
 
     public static InventoryRepository repository() {
         InventoryRepository inventoryRepository = InventoryApplication.applicationContext.getBean(
@@ -30,11 +34,30 @@ public class Inventory {
     }
 
     //<<< Clean Arch / Port Method
-    public void decreaseStock(DecreaseStockCommand decreaseStockCommand) {
+    public static void decreaseStock(OrderPlaced orderPlaced) {
         //implement business logic here:
 
-        StockDecreased stockDecreased = new StockDecreased(this);
+        /** Example 1:  new item 
+        Inventory inventory = new Inventory();
+        repository().save(inventory);
+
+        StockDecreased stockDecreased = new StockDecreased(inventory);
         stockDecreased.publishAfterCommit();
+        */
+
+        /** Example 2:  finding and process
+        
+        repository().findById(orderPlaced.get???()).ifPresent(inventory->{
+            
+            inventory // do something
+            repository().save(inventory);
+
+            StockDecreased stockDecreased = new StockDecreased(inventory);
+            stockDecreased.publishAfterCommit();
+
+         });
+        */
+
     }
     //>>> Clean Arch / Port Method
 

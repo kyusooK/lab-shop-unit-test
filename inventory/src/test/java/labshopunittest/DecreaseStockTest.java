@@ -40,14 +40,10 @@ public class DecreaseStockTest {
     @Autowired
     private ApplicationContext applicationContext;
 
-    @Autowired
-    public InventoryRepository repository;
-
     @Test
     @SuppressWarnings("unchecked")
     public void test0() {
         //given:
-        Inventory entity = new Inventory();
 
         entity.setId("1");
         entity.setStock("10");
@@ -62,8 +58,6 @@ public class DecreaseStockTest {
         event.setProductId("Product1");
         event.setQty("5");
         event.setCustomerId("Customer1");
-
-        InventoryApplication.applicationContext = applicationContext;
 
         ObjectMapper objectMapper = new ObjectMapper();
         try {
@@ -89,6 +83,11 @@ public class DecreaseStockTest {
                 .poll();
 
             assertNotNull("Resulted event must be published", received);
+
+            StockDecreased outputEvent = objectMapper.readValue(
+                received.getPayload(),
+                StockDecreased.class
+            );
 
             LOGGER.info("Response received: {}", received.getPayload());
 

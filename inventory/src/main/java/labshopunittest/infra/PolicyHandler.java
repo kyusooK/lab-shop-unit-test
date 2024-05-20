@@ -34,8 +34,9 @@ public class PolicyHandler {
         System.out.println(
             "\n\n##### listener DecreaseStock : " + orderPlaced + "\n\n"
         );
-        // Sample Logic //
 
+        // Sample Logic //
+        Inventory.decreaseStock(event);
     }
 }
 //>>> Clean Arch / Inbound Adaptor
