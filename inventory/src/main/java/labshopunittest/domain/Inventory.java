@@ -10,7 +10,6 @@ import lombok.Data;
 @Entity
 @Table(name = "Inventory_table")
 @Data
-//<<< DDD / Aggregate Root
 public class Inventory {
 
     @Id
@@ -29,11 +28,7 @@ public class Inventory {
         return inventoryRepository;
     }
 
-    //<<< Clean Arch / Port Method
     public static void decreaseStock(OrderPlaced orderPlaced) {
-        //implement business logic here:
-
-                
                
         repository().findById(Long.valueOf(orderPlaced.getProductId().substring(orderPlaced.getProductId().length() - 1))).ifPresent(inventory->{
             
@@ -45,7 +40,5 @@ public class Inventory {
          });
       
     }
-    //>>> Clean Arch / Port Method
 
 }
-//>>> DDD / Aggregate Root
