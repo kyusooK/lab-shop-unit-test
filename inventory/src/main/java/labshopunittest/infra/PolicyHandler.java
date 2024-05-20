@@ -34,6 +34,8 @@ public class PolicyHandler {
         System.out.println(
             "\n\n##### listener DecreaseStock : " + orderPlaced + "\n\n"
         );
+
+        Inventory.decreaseStock(event);
         // Sample Logic //
 
     }

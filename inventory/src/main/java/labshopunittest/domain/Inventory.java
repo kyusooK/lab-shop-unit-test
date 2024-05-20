@@ -30,11 +30,20 @@ public class Inventory {
     }
 
     //<<< Clean Arch / Port Method
-    public void decreaseStock(DecreaseStockCommand decreaseStockCommand) {
+    public static void decreaseStock(OrderPlaced orderPlaced) {
         //implement business logic here:
 
-        StockDecreased stockDecreased = new StockDecreased(this);
-        stockDecreased.publishAfterCommit();
+                
+               
+        repository().findById(Long.valueOf(orderPlaced.getProductId().substring(orderPlaced.getProductId().length() - 1))).ifPresent(inventory->{
+            
+            inventory.setStock(inventory.getStock() - orderPlaced.getQty()); // do something
+            repository().save(inventory);
+
+            StockDecreased stockDecreased = new StockDecreased(inventory);
+            stockDecreased.publishAfterCommit();
+         });
+      
     }
     //>>> Clean Arch / Port Method
 

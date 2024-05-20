@@ -49,8 +49,8 @@ public class DecreaseStockTest {
         //given:
         Inventory entity = new Inventory();
 
-        entity.setId("1");
-        entity.setStock("10");
+        entity.setId(1L);
+        entity.setStock(10);
 
         repository.save(entity);
 
@@ -58,9 +58,9 @@ public class DecreaseStockTest {
 
         OrderPlaced event = new OrderPlaced();
 
-        event.setId("1");
+        event.setId(1L);
         event.setProductId("Product1");
-        event.setQty("5");
+        event.setQty(5);
         event.setCustomerId("Customer1");
 
         InventoryApplication.applicationContext = applicationContext;
@@ -90,10 +90,14 @@ public class DecreaseStockTest {
 
             assertNotNull("Resulted event must be published", received);
 
+            StockDecreased outputEvent = objectMapper.readValue(
+                received.getPayload(),
+                StockDecreased.class
+            );
             LOGGER.info("Response received: {}", received.getPayload());
 
-            assertEquals(outputEvent.getId(), "1");
-            assertEquals(outputEvent.getStock(), "5");
+            assertEquals(String.valueOf(outputEvent.getId()), "1");
+            assertEquals(String.valueOf(outputEvent.getStock()), "5");
         } catch (JsonProcessingException e) {
             // TODO Auto-generated catch block
             assertTrue("exception", false);
