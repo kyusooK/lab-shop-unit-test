@@ -1,7 +1,5 @@
 package labshopunittest.domain;
 
-import java.util.*;
-import labshopunittest.domain.*;
 import labshopunittest.infra.AbstractEvent;
 import lombok.*;
 

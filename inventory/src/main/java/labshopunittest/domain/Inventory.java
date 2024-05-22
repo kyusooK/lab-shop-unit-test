@@ -1,8 +1,5 @@
 package labshopunittest.domain;
 
-import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
 import javax.persistence.*;
 import labshopunittest.InventoryApplication;
 import lombok.Data;
@@ -32,7 +29,7 @@ public class Inventory {
                
         repository().findById(Long.valueOf(orderPlaced.getProductId())).ifPresent(inventory->{
             
-            inventory.setStock(inventory.getStock() - orderPlaced.getQty()); // do something
+            inventory.setStock(inventory.getStock() - orderPlaced.getQty());
             repository().save(inventory);
 
             StockDecreased stockDecreased = new StockDecreased(inventory);

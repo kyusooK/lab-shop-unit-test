@@ -6,7 +6,6 @@ import labshopunittest.domain.*;
 import labshopunittest.infra.AbstractEvent;
 import lombok.*;
 
-//<<< DDD / Domain Event
 @Data
 @ToString
 public class OrderPlaced extends AbstractEvent {
@@ -24,4 +23,3 @@ public class OrderPlaced extends AbstractEvent {
         super();
     }
 }
-//>>> DDD / Domain Event

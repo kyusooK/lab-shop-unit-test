@@ -11,7 +11,6 @@ import lombok.Data;
 @Entity
 @Table(name = "Order_table")
 @Data
-//<<< DDD / Aggregate Root
 public class Order {
 
     @Id
@@ -37,4 +36,3 @@ public class Order {
         return orderRepository;
     }
 }
-//>>> DDD / Aggregate Root
