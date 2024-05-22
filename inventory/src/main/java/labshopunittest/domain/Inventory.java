@@ -30,7 +30,7 @@ public class Inventory {
 
     public static void decreaseStock(OrderPlaced orderPlaced) {
                
-        repository().findById(Long.valueOf(orderPlaced.getProductId().substring(orderPlaced.getProductId().length() - 1))).ifPresent(inventory->{
+        repository().findById(Long.valueOf(orderPlaced.getProductId())).ifPresent(inventory->{
             
             inventory.setStock(inventory.getStock() - orderPlaced.getQty()); // do something
             repository().save(inventory);

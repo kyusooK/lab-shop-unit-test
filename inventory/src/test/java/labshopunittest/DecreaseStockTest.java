@@ -59,7 +59,7 @@ public class DecreaseStockTest {
         OrderPlaced event = new OrderPlaced();
 
         event.setId(1L);
-        event.setProductId("Product1");
+        event.setProductId("1");
         event.setQty(5);
         event.setCustomerId("Customer1");
 
