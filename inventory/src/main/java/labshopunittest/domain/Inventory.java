@@ -1,6 +1,12 @@
 package labshopunittest.domain;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.PostPersist;
+import javax.persistence.Table;
+
 import labshopunittest.InventoryApplication;
 import lombok.Data;
 
@@ -26,15 +32,6 @@ public class Inventory {
     }
 
     public static void decreaseStock(OrderPlaced orderPlaced) {
-               
-        repository().findById(Long.valueOf(orderPlaced.getProductId())).ifPresent(inventory->{
-            
-            inventory.setStock(inventory.getStock() - orderPlaced.getQty());
-            repository().save(inventory);
-
-            StockDecreased stockDecreased = new StockDecreased(inventory);
-            stockDecreased.publishAfterCommit();
-         });
       
     }
 
